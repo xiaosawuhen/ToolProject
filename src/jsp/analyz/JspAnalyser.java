@@ -28,12 +28,18 @@ public class JspAnalyser {
 	private Map<String, JspIntegrate> jspIntegrateMap = null;
 	
 	/**
+	 * fileIterator
+	 */
+	private Iterator<String> fileIterator = null;
+	
+	/**
 	 * pageInfo
 	 */
 	private PageInfo pageInfo = null;
 	
 	public JspAnalyser(List<String> fileContent, String baseUrl) {
 		this.fileContent = fileContent;
+		fileIterator = fileContent.iterator();
 		this.baseUrl = baseUrl;
 		this.jspIntegrateMap = new HashMap<>();
 		this.pageInfo = new PageInfo(baseUrl);
@@ -49,13 +55,23 @@ public class JspAnalyser {
 	private String taglibPrefix = "prefix";
 	private String taglibTagdir = "tagdir";
 	
+	private String getNextLine(){
+		String line = null;
+		
+		if(fileIterator.hasNext()){
+			line = fileIterator.next();
+		}
+		
+		return line;
+	}
+	
 	public List<String> start(){
 		List<String> integratedList = new ArrayList<>();
 		
-		Iterator<String> fileIterator = fileContent.iterator();
-		
 		while(fileIterator.hasNext()){
-			String line = fileIterator.next().trim();
+			String baseLine = getNextLine();
+			String line = baseLine.trim();
+			String headerSpace = baseLine.substring(0, baseLine.indexOf(line));
 			
 			if(line.startsWith(defineStart)){
 				String defineLine = line;
@@ -64,7 +80,7 @@ public class JspAnalyser {
 					defineLine += " " + fileIterator.next().trim(); // add space between two lines
 				}
 
-				integratedList.add(defineLine);// write defineLine;
+				integratedList.add(headerSpace + defineLine);// write defineLine;
 				
 				String defineContent = defineLine.replaceAll(defineStart, "").replaceAll(defineEnd, "").trim();
 				
@@ -88,7 +104,7 @@ public class JspAnalyser {
 					elementLine += " " + fileIterator.next().trim(); // add space between two lines
 				}
 
-				integratedList.add(elementLine);// write defineLine;
+				integratedList.add(headerSpace + elementLine);// write defineLine;
 				
 			} else if(line.startsWith(elementStart)){
 				String elementLine = line;
@@ -113,20 +129,22 @@ public class JspAnalyser {
 							jspIntegrateMap.put(taglibImport[0], jspIntegrate);
 							
 							List<String> fileContent = jspIntegrate.start();
+							integratedList.add("<!-- ==========================================" + elementLine + " ==========================================Start -->");
 							integratedList.addAll(fileContent);
+							integratedList.add("<!-- ==========================================" + elementLine + "==========================================End -->");
 						} else {
-							integratedList.add(elementLine);
+							integratedList.add(headerSpace + elementLine);
 						}
 						
 					} else {
-						integratedList.add(elementLine);// write defineLine;
+						integratedList.add(headerSpace + elementLine);// write defineLine;
 					}
 				} else {
-					integratedList.add(elementLine);// write defineLine;
+					integratedList.add(headerSpace + elementLine);// write defineLine;
 				}
 				
 			} else {
-				integratedList.add(line);// write Line;
+				integratedList.add(headerSpace + line);// write Line;
 			}
 		}
 		

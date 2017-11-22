@@ -1,5 +1,6 @@
 package jsp.analyz;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
@@ -36,6 +37,17 @@ public class JapFindIdClassName {
 		}
 		return idList;
 	}
+	
+	public List<String> getIdLineList(String id) {
+		List<String> idLineList = new ArrayList<>();
+		for (JspAttribute attribute : this.idList) {
+			if(attribute.getValueDealed().trim().equals(id.trim())){
+				idLineList.add(attribute.getLine());
+			}
+		}
+		
+		return idLineList;
+	}
 
 
 	public void setIdList(Set<JspAttribute> idList) {
@@ -52,6 +64,17 @@ public class JapFindIdClassName {
 			classList.add(attribute.getValueDealed());
 		}
 		return classList;
+	}
+	
+	public List<String> getClassLineList(String className) {
+		List<String> lineList = new ArrayList<>();
+		for (JspAttribute attribute : this.classList) {
+			if(attribute.getValueDealed().trim().equals(className.trim())){
+				lineList.add(attribute.getLine());
+			}
+		}
+		
+		return lineList;
 	}
 
 
@@ -70,6 +93,16 @@ public class JapFindIdClassName {
 		}
 		return nameList;
 	}
+	public List<String> getNameLineList(String name) {
+		List<String> lineList = new ArrayList<>();
+		for (JspAttribute attribute : this.nameList) {
+			if(attribute.getValueDealed().trim().equals(name.trim())){
+				lineList.add(attribute.getLine());
+			}
+		}
+		
+		return lineList;
+	}
 
 
 	public void setNameList(Set<JspAttribute> nameList) {
@@ -86,17 +119,17 @@ public class JapFindIdClassName {
 			if(line.contains("id")){
 				String value = JspUtil.getProperty1(line, "id");
 				if(value != null){
-					idList.add(new JspAttribute("id", value));
+					idList.add(new JspAttribute("id", value, line));
 				}
 			} else if(line.contains("class")){
 				String value = JspUtil.getProperty1(line, "class");
 				if(value != null){
-					classList.add(new JspAttribute("class", value));
+					classList.add(new JspAttribute("class", value, line));
 				}
 			}  else if(line.contains("name")){
 				String value = JspUtil.getProperty1(line, "name");
 				if(value != null){
-					nameList.add(new JspAttribute("name", value));
+					nameList.add(new JspAttribute("name", value, line));
 				}
 			}
 		}

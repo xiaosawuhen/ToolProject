@@ -8,7 +8,9 @@ public class JspAttribute {
 	
 	private String valueDealed;
 	
-	public JspAttribute(String name, String value) {
+	private String line;
+	
+	public JspAttribute(String name, String value, String line) {
 		this.name = name;
 		this.value = value;
 		if(value.equals("facet_block ${facetData.multiSelect ? '' : 'indent'}")){
@@ -33,6 +35,8 @@ public class JspAttribute {
 		}
 		
 		this.valueDealed = valueTemp;
+		
+		this.line = line;
 	}
 
 	public String getName() {
@@ -57,5 +61,13 @@ public class JspAttribute {
 
 	public void setValueDealed(String valueDealed) {
 		this.valueDealed = valueDealed;
+	}
+
+	public String getLine() {
+		return line;
+	}
+
+	public void setLine(String line) {
+		this.line = line;
 	}
 }
