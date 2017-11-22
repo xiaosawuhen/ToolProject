@@ -5,8 +5,8 @@ import java.util.List;
 
 import file.backup.FileBackupInterface;
 import file.backup.impl.FileBackupHandler;
-import file.copy.FIleInterface;
-import file.copy.impl.FileHandler;
+import file.operate.FIleInterface;
+import file.operate.impl.FileHandler;
 
 public class FileController {
 	
@@ -31,9 +31,9 @@ public class FileController {
 	}
 	
 	public void backup() {
-		File config = new File("C:\\wnn\\workspace\\aaaaaaaaaaaatest\\src\\file\\backup.source");
+		File config = new File("C:\\wnn\\workspace\\aaa_toolManage\\src\\file\\backup.source");
 		File from = new File("C:\\sceneric-hybris\\extensions\\nemo\\nemob2bstorefront");
-		File to = new File("C:\\wnn\\work\\PO\\PO-1502");
+		File to = new File("C:\\wnn\\work\\NT\\NT-727");
 		FileBackupHandler fileBackupHandler = new FileBackupHandler();
 		
 		FIleInterface fIleInterface = new FileHandler();

@@ -1,4 +1,4 @@
-package file.copy.impl;
+package file.operate.impl;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -10,7 +10,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import file.copy.FIleInterface;
+import file.operate.FIleInterface;
 
 public class FileHandler implements FIleInterface {
 
