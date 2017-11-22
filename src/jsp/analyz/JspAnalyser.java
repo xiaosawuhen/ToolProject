@@ -73,8 +73,8 @@ public class JspAnalyser {
 					int tagdirIndex = defineContent.indexOf(taglibTagdir);
 					if(tagdirIndex > 0){
 						PageTaglibInfo pageTaglibInfo = new PageTaglibInfo();
-						String tagdir = getProperty(defineContent, taglibTagdir);
-						String prefix = getProperty(defineContent, taglibPrefix);
+						String tagdir = JspUtil.getProperty(defineContent, taglibTagdir);
+						String prefix = JspUtil.getProperty(defineContent, taglibPrefix);
 						pageTaglibInfo.setPrefix(prefix);
 						pageTaglibInfo.setTagdir(tagdir);
 						pageInfo.addTaglib(pageTaglibInfo);
@@ -131,22 +131,5 @@ public class JspAnalyser {
 		}
 		
 		return integratedList;
-	}
-	
-	private String getProperty(String line, String name) {
-
-		String property = null;
-		
-		String propertyStart = line.split(name)[1].trim().substring(1);
-		
-		if(propertyStart.startsWith("\"")){
-			propertyStart = propertyStart.substring(1);
-			property = propertyStart.substring(0, propertyStart.indexOf("\""));
-		} else if(propertyStart.startsWith("\'")){
-			propertyStart = propertyStart.substring(1);
-			property = propertyStart.substring(0, propertyStart.indexOf("\'"));
-		}
-		
-		return property;
 	}
 }

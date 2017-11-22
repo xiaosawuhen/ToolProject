@@ -16,6 +16,9 @@ public class Main {
 		
 		List<String> fileContent = jspIntegrate.start();
 		
+		JapFindIdClassName japFindIdClassName = new JapFindIdClassName(fileContent);
+		japFindIdClassName.start();
+		
 		FIleInterface fIleInterface = new FileHandler();
 		fIleInterface.writeFile(new File(filePath + ".backup"), fileContent);
 	}
