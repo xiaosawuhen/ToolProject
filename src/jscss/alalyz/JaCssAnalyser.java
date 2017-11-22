@@ -13,13 +13,13 @@ import file.operate.impl.FileHandler;
 
 public class JaCssAnalyser {
 
-	private List<String> attributeList = null;
+	private Set<String> attributeList = null;
 	
 	private FIleInterface fIleInterface = null;
 	
 	private String file = null;
 	
-	private JaCssAnalyser(String file, List<String> attributeList) {
+	public JaCssAnalyser(String file, Set<String> attributeList) {
 		fIleInterface = new FileHandler();
 		this.attributeList = attributeList;
 		this.file = file;
@@ -40,7 +40,13 @@ public class JaCssAnalyser {
 			
 			while(index > 0) {
 				String value0 = tempLine.substring(0, index).trim();
-				String value1 = tempLine.substring(index+2);
+				String value1 = null;
+				try {
+
+					value1 = tempLine.substring(index+2);
+				} catch (Exception e) {
+					System.out.println();
+				}
 				
 				int valueselectoridx = value1.indexOf(")");
 				if(valueselectoridx> 0) {
@@ -50,12 +56,14 @@ public class JaCssAnalyser {
 					value1 = value1.substring(valueselectoridx+1);
 					tempLine = value0 + value1;
 				} else {
-					newline = fileIterator.next().trim();
-					tempLine = value0 + "$(" + value1 + newline;
-					line = line + newline;
+					if(fileIterator.hasNext()){
+						newline = fileIterator.next().trim();
+						tempLine = value0 + "$(" + value1 + newline;
+						line = line + newline;
+					}
 				}
 				
-				index = tempLine.indexOf("(");
+				index = tempLine.indexOf("$(");
 			}
 		}
 		

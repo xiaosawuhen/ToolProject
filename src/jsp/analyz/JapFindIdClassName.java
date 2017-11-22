@@ -25,6 +25,58 @@ public class JapFindIdClassName {
 		this.nameList = new HashSet<>();
 	}
 	
+	
+	public Set<JspAttribute> getIdList() {
+		return idList;
+	}
+	public Set<String> getStringIdList() {
+		Set<String> idList = new HashSet<>();
+		for (JspAttribute attribute : this.idList) {
+			idList.add(attribute.getValueDealed());
+		}
+		return idList;
+	}
+
+
+	public void setIdList(Set<JspAttribute> idList) {
+		this.idList = idList;
+	}
+
+
+	public Set<JspAttribute> getClassList() {
+		return classList;
+	}
+	public Set<String> getStringClassList() {
+		Set<String> classList = new HashSet<>();
+		for (JspAttribute attribute : this.classList) {
+			classList.add(attribute.getValueDealed());
+		}
+		return classList;
+	}
+
+
+	public void setClassList(Set<JspAttribute> classList) {
+		this.classList = classList;
+	}
+
+
+	public Set<JspAttribute> getNameList() {
+		return nameList;
+	}
+	public Set<String> getStringNameList() {
+		Set<String> nameList = new HashSet<>();
+		for (JspAttribute attribute : this.nameList) {
+			nameList.add(attribute.getValueDealed());
+		}
+		return nameList;
+	}
+
+
+	public void setNameList(Set<JspAttribute> nameList) {
+		this.nameList = nameList;
+	}
+
+
 	public void start() {
 		Iterator<String> fileIterator = fileContent.iterator();
 		while(fileIterator.hasNext()){
@@ -49,10 +101,10 @@ public class JapFindIdClassName {
 			}
 		}
 
-		for (JspAttribute attribute : idList) {
-			System.out.println(attribute.getValue());
-			System.err.println(attribute.getValueDealed());
-		}
+//		for (JspAttribute attribute : idList) {
+//			System.out.println(attribute.getValue());
+//			System.err.println(attribute.getValueDealed());
+//		}
 	}
 }
  
