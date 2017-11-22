@@ -52,16 +52,16 @@ public class JspAnalyser {
 	public List<String> start(){
 		List<String> integratedList = new ArrayList<>();
 		
-		Iterator<String> integrateiterator = integratedList.iterator();
+		Iterator<String> fileIterator = fileContent.iterator();
 		
-		while(integrateiterator.hasNext()){
-			String line = integrateiterator.next().trim();
+		while(fileIterator.hasNext()){
+			String line = fileIterator.next().trim();
 			
 			if(line.startsWith(defineStart)){
 				String defineLine = line;
 				
 				while(!defineLine.endsWith(defineEnd)) {
-					defineLine += " " + integrateiterator.next().trim(); // add space between two lines
+					defineLine += " " + fileIterator.next().trim(); // add space between two lines
 				}
 
 				integratedList.add(defineLine);// write defineLine;
@@ -85,7 +85,7 @@ public class JspAnalyser {
 				String elementLine = line;
 				while(!elementLine.endsWith(elementHalfEnd)) {
 					// TODO may be the error line
-					elementLine += " " + integrateiterator.next().trim(); // add space between two lines
+					elementLine += " " + fileIterator.next().trim(); // add space between two lines
 				}
 
 				integratedList.add(elementLine);// write defineLine;
@@ -94,14 +94,30 @@ public class JspAnalyser {
 				String elementLine = line;
 				while(!(elementLine.endsWith(elementEnd)||elementLine.endsWith(elementHalfEnd))) {
 					// TODO may be the error line
-					elementLine += " " + integrateiterator.next().trim(); // add space between two lines
+					elementLine += " " + fileIterator.next().trim(); // add space between two lines
 				}
 				
 				if(elementLine.endsWith(elementEnd)) {
 					String elementContent = elementLine.replaceAll(elementStart, "").replaceAll(elementEnd, "").trim();
-					String sign = elementContent.substring(0, elementContent.indexOf(" "));
+					
+					String sign = elementContent;
+					if(elementContent.indexOf(" ") > 0){
+						sign = elementContent.substring(0, elementContent.indexOf(" "));
+					}
 					if(sign.contains(":")) {
 						String[] taglibImport = sign.split(":");
+						String taglibUrl = pageInfo.getTaglibUrl(taglibImport);
+
+						if(taglibUrl != null){
+							JspIntegrate jspIntegrate = new JspIntegrate(taglibUrl, baseUrl);
+							jspIntegrateMap.put(taglibImport[0], jspIntegrate);
+							
+							List<String> fileContent = jspIntegrate.start();
+							integratedList.addAll(fileContent);
+						} else {
+							integratedList.add(elementLine);
+						}
+						
 					} else {
 						integratedList.add(elementLine);// write defineLine;
 					}

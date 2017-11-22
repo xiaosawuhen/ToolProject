@@ -46,6 +46,6 @@ public class PageTaglibInfo {
 	}
 	
 	public String getTagUrl(String baseUrl) {
-		return baseUrl + tagdir; // TODO the "/"
+		return baseUrl.replaceAll("\\\\", "/") + tagdir; // TODO the "/"
 	}
 }

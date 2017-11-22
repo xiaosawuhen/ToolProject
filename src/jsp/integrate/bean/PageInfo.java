@@ -30,13 +30,14 @@ public class PageInfo {
 	
 	public String getTaglibUrl(String[] info) {
 		String sign = info[0];
-		String name = info[1];
+		String name = info[1] + ".tag";
 		
 		String url = null;
 		
 		for (PageTaglibInfo pageTaglibInfo : tagLibList) {
 			if(pageTaglibInfo.getPrefix().trim().equals(sign.trim())) {
-				
+				url = pageTaglibInfo.getTagUrl(baseUrl) + "/" + name;
+				break;
 			}
 		}
 		
