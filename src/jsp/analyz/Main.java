@@ -13,7 +13,13 @@ public class Main {
 
 	public static void main(String[] args) {
 		String version = "1.1";
-		String filePath = "C:\\sceneric-hybris\\extensions\\nemo\\nemob2bstorefront\\web\\webroot\\WEB-INF\\views\\desktop\\pages\\category\\accessoryGridPage.jsp";
+		
+
+		String filePath = "C:/sceneric-hybris/extensions/nemo/nemob2bstorefront/web/webroot/WEB-INF/views/addons/nemoglobal/desktop/pages/globalProductBuilderPage.jsp";
+//		String filePath = "C:/sceneric-hybris/extensions/nemo/nemob2bstorefront/web/webroot/WEB-INF/views/desktop/pages/quote/quoteConfirmationPage.jsp";
+//		String filePath = "C:/sceneric-hybris/extensions/nemo/nemob2bstorefront/web/webroot/WEB-INF/views/desktop/pages/checkout/multi/nemoPaymentPage.jsp";
+//		String filePath = "C:/sceneric-hybris/extensions/nemo/nemob2bstorefront/web/webroot/WEB-INF/views/desktop/pages/checkout/multi/addEditDeliveryAddressPage.jsp";
+//		String filePath = "C:\\sceneric-hybris\\extensions\\nemo\\nemob2bstorefront\\web\\webroot\\WEB-INF\\views\\desktop\\pages\\category\\accessoryGridPage.jsp";
 //		String filePath = "C:\\sceneric-hybris\\extensions\\nemo\\nemob2bstorefront\\web\\webroot\\WEB-INF\\views\\addons\\lenovowcms\\desktop\\pages\\layout\\commonContent3ColumnsPage.jsp";
 		String baseUlr = "C:\\sceneric-hybris\\extensions\\nemo\\nemob2bstorefront\\web\\webroot";
 		JspIntegrate jspIntegrate = new JspIntegrate(filePath, baseUlr);

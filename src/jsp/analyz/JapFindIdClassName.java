@@ -118,17 +118,17 @@ public class JapFindIdClassName {
 			
 			if(line.contains("id")){
 				String value = JspUtil.getProperty1(line, "id");
-				if(value != null){
+				if(value != null && !value.trim().isEmpty()){
 					idList.add(new JspAttribute("id", value, line));
 				}
 			} else if(line.contains("class")){
 				String value = JspUtil.getProperty1(line, "class");
-				if(value != null){
+				if(value != null && !value.trim().isEmpty()){
 					classList.add(new JspAttribute("class", value, line));
 				}
 			}  else if(line.contains("name")){
 				String value = JspUtil.getProperty1(line, "name");
-				if(value != null){
+				if(value != null && !value.trim().isEmpty()){
 					nameList.add(new JspAttribute("name", value, line));
 				}
 			}
